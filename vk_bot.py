@@ -21,14 +21,14 @@ def get_dialogflow_response(text, user_id):
     query_input = dialogflow.QueryInput(text=text_input)
 
     response = client.detect_intent(request={"session": session, "query_input": query_input})
-    return response.query_result.fulfillment_text
+    return response.query_result.fulfillment_text, response.query_result.intent.is_fallback
 
 
 def send_vk_message(vk_api, user_id, text):
     vk_api.messages.send(
         user_id=user_id,
         message=text,
-        random_id=random.randint(1, 1000)
+        random_id=random.randint(1, 2_147_483_647)
     )
 
 
@@ -44,5 +44,9 @@ if __name__ == "__main__":
 
             print(f"Сообщение от {user_id}: {user_text}")
 
-            df_response = get_dialogflow_response(user_text, user_id)
-            send_vk_message(vk_api_obj, user_id, df_response)
+            df_response, is_fallback = get_dialogflow_response(user_text, user_id)
+
+            if not is_fallback:
+                send_vk_message(vk_api_obj, user_id, df_response)
+            else:
+                print(f"Сообщение от {user_id} не распознано. Бот молчит.")
