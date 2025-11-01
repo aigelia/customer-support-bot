@@ -1,10 +1,12 @@
 import asyncio
+import functools
+import traceback
+
 from aiogram import Bot, Dispatcher
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 from environs import Env
 from dialogflow_client import detect_intent_text
-import traceback
 
 
 async def command_start_handler(message: Message):
@@ -31,7 +33,7 @@ async def run_tg_bot():
     dp = Dispatcher()
 
     dp.message.register(command_start_handler, CommandStart())
-    dp.message.register(lambda msg: reply_handler(msg, bot, admin_chat_id))
+    dp.message.register(functools.partial(reply_handler, bot=bot, admin_chat_id=admin_chat_id))
 
     try:
         await dp.start_polling(bot)
