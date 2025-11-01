@@ -26,7 +26,7 @@ def create_intent(project_id, display_name, questions, answer):
     response = intents_client.create_intent(
         request={"parent": parent, "intent": intent}
     )
-    print(f"✅ Добавлен интент: {response.display_name}")
+    print(f"Добавлен интент: {response.display_name}")
 
 
 def main():
@@ -43,7 +43,7 @@ def main():
         try:
             create_intent(project_id, intent_name, questions, answer)
         except Exception as e:
-            print(f"⚠️ Ошибка при создании интента '{intent_name}': {e}")
+            print(f"Ошибка при создании интента '{intent_name}': {e}")
 
 
 if __name__ == "__main__":
