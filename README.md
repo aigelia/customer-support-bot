@@ -21,6 +21,7 @@ pip install -r requirements.txt
 `VK_TOKEN` - токен группы VK;
 `GOOGLE_APPLICATION_CREDENTIALS` - путь к файлу с сервисным ключом Google (по умолчанию укажите ./credentials.json);
 `DIALOGFLOW_API_KEY` - API-ключ DialogFlow.
+`ADMIN_CHAT_ID` - chat-ID админа в Telegram для сообщения об ошибках в работе бота.
 
 ### Обучение DialogFlow
 
